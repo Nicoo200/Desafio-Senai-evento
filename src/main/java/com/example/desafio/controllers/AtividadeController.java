@@ -9,23 +9,25 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.desafio.models.Participante;
-import com.example.desafio.repositories.ParticipanteRepository;
+import com.example.desafio.models.Atividade;
+import com.example.desafio.repositories.AtividadeRepository;
 
 @RestController
-@RequestMapping("/participantes")
-public class ParticipanteController {
+@RequestMapping("/atividades")
+public class AtividadeController {
 
     @Autowired
-    private ParticipanteRepository participanteRepository;
+    private AtividadeRepository atividadeRepository;
+
 
     @GetMapping
-    public List<Participante> listarParticipantes() {
-        return participanteRepository.findAll();
+    public List<Atividade> listarAtividades() {
+        return atividadeRepository.findAll();
     }
 
     @PostMapping
-    public Participante adicionarParticipante(@RequestBody Participante participante) {
-        return participanteRepository.save(participante);
+    public Atividade adicionarAtividade(@RequestBody Atividade atividade) {
+        return atividadeRepository.save(atividade);
     }
+    
 }

@@ -1,8 +1,8 @@
 package com.example.desafio.models;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -21,8 +21,8 @@ public class Categoria {
 	@Column(columnDefinition = "TEXT")
 	private String descricao;
 	
-	@OneToMany(mappedBy ="categoria")
-	private List<Atividade>atividade = new ArrayList<>();
+	@OneToMany(mappedBy ="categoria" , cascade = CascadeType.ALL)
+    private List<Atividade> atividades;
 	
 	
 	public Categoria() {
@@ -48,6 +48,14 @@ public class Categoria {
 
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
+	}
+
+	public List<Atividade> getAtividades() {
+		return atividades;
+	}
+
+	public void setAtividades(List<Atividade> atividades) {
+		this.atividades = atividades;
 	}
 	
 	

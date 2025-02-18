@@ -1,18 +1,18 @@
 package com.example.desafio.models;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -27,16 +27,22 @@ public class Atividade {
     private String descricao;
 	private Double preco;
 	
-	@OneToMany(mappedBy ="atividade")
-	private List<Participante> participante = new ArrayList<>();
-	
+
 	@ManyToOne
-	@JoinColumn(name = "categoria_id")
-	private Categoria categoria;
+    @JoinColumn(name = "categoria_id", nullable = false)
+    private Categoria categoria;
+    
+	@OneToMany(mappedBy = "atividade", cascade = CascadeType.ALL)
+    private List<Bloco> blocos;
 	
-	@OneToOne
-	@MapsId
-	private Bloco bloco;
+    @ManyToMany
+    @JoinTable(
+        name = "participante_atividade",
+        joinColumns = @JoinColumn(name = "atividade_id"),
+        inverseJoinColumns = @JoinColumn(name = "participante_id")
+    )
+    private List<Participante> participantes;
+
 	
 	public Atividade() {
 		
@@ -82,5 +88,21 @@ public class Atividade {
 		this.preco = preco;
 	}
 	
-	
+	public List<Bloco> getBlocos() {
+        return blocos;
+    }
+
+    public void setBlocos(List<Bloco> blocos) {
+        this.blocos = blocos;
+    }
+
+    public List<Participante> getParticipantes() {
+        return participantes;
+    }
+
+    public void setParticipantes(List<Participante> participantes) {
+        this.participantes = participantes;
+    }
 }
+	
+

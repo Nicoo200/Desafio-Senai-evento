@@ -2,12 +2,12 @@ package com.example.desafio.models;
 
 import java.time.Instant;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -20,8 +20,9 @@ public class Bloco {
 	private Instant inicio;
 	private Instant fim;
 	
-	@OneToOne(mappedBy ="bloco", cascade = CascadeType.ALL)
-	private Atividade atividade;
+    @ManyToOne
+    @JoinColumn(name = "atividade_id", nullable = false)
+    private Atividade atividade;
 	
 	public Bloco() {
 		
@@ -58,7 +59,15 @@ public class Bloco {
 		this.fim = fim;
 	}
 	
-	
-	
-	
+	public Atividade getAtividade() {
+        return atividade;
+    }
+
+    public void setAtividade(Atividade atividade) {
+        this.atividade = atividade;
+    }
 }
+	
+	
+	
+

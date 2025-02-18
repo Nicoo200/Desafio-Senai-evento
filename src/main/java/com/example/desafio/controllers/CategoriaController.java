@@ -9,23 +9,23 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.desafio.models.Participante;
-import com.example.desafio.repositories.ParticipanteRepository;
+import com.example.desafio.models.Categoria;
+import com.example.desafio.repositories.CategoriaRepository;
 
 @RestController
-@RequestMapping("/participantes")
-public class ParticipanteController {
+@RequestMapping("/categorias")
+public class CategoriaController {
 
     @Autowired
-    private ParticipanteRepository participanteRepository;
+    private CategoriaRepository categoriaRepository;
 
     @GetMapping
-    public List<Participante> listarParticipantes() {
-        return participanteRepository.findAll();
+    public List<Categoria> listarCategorias() {
+        return categoriaRepository.findAll();
     }
 
     @PostMapping
-    public Participante adicionarParticipante(@RequestBody Participante participante) {
-        return participanteRepository.save(participante);
+    public Categoria adicionarCategoria(@RequestBody Categoria categoria) {
+        return categoriaRepository.save(categoria);
     }
 }
